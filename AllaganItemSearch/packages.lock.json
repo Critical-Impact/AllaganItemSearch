@@ -192,12 +192,6 @@
           "System.Runtime.CompilerServices.Unsafe": "5.0.0"
         }
       },
-      "MQTTnet": {
-        "type": "Direct",
-        "requested": "[5.0.0.1214-RC, )",
-        "resolved": "5.0.0.1214-RC",
-        "contentHash": "pChqTeL1DiwmKyH5reDmnv3kzoWe8WEfyYq2BSibHRFe72p+CC5pjCzAzbnkbppUQvHJOlk2q6EkmuVdoy2SQQ=="
-      },
       "StyleCop.Analyzers": {
         "type": "Direct",
         "requested": "[1.2.0-beta.556, )",
