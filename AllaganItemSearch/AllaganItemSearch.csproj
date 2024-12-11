@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="Dalamud.Plugin.Bootstrap.targets"/>
+
+    <PropertyGroup>
+        <Version>1.0.0.0</Version>
+        <Description>A plugin designed for quickly searching through all in-game items, providing detailed information on gear, crafting materials, and collectibles.</Description>
+        <PackageProjectUrl>https://github.com/Critical-Impact/AllaganItemSearch</PackageProjectUrl>
+        <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
+        <IsPackable>false</IsPackable>
+        <Nullable>enable</Nullable>
+        <TargetFramework>net8.0-windows</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AllaganLib.GameSheets" Version="1.1.12" />
+        <PackageReference Include="AllaganLib.Interface" Version="1.1.12" />
+        <PackageReference Include="Autofac" Version="8.0.0"/>
+        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="9.0.0"/>
+        <PackageReference Include="DalaMock.Host" Version="2.1.6" />
+        <PackageReference Include="DalaMock.Shared" Version="2.1.6" />
+        <PackageReference Include="Humanizer" Version="2.14.1"/>
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0"/>
+        <PackageReference Include="MongoDB.Bson" Version="2.25.0"/>
+        <PackageReference Include="MQTTnet" Version="5.0.0.1214-RC" />
+        <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="System.Reactive" Version="6.0.1" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="AllaganLib.Data" Version="1.1.12" />
+        <PackageReference Include="AllaganLib.Universalis" Version="1.1.12" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <ContentWithTargetPath Include="Images\logo.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <TargetPath>Images\logo.png</TargetPath>
+        </ContentWithTargetPath>
+        <ContentWithTargetPath Include="Images\logo_small.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <TargetPath>Images\logo_small.png</TargetPath>
+        </ContentWithTargetPath>
+        <ContentWithTargetPath Include="Images\logo_menu.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <TargetPath>Images\logo_menu.png</TargetPath>
+        </ContentWithTargetPath>
+    </ItemGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="stylecop.json"/>
+    </ItemGroup>
+</Project>
