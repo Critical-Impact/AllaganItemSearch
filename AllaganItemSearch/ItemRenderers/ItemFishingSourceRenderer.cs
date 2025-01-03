@@ -36,7 +36,7 @@ public class ItemFishingSourceRenderer : ItemInfoRenderer<ItemFishingSource>
             ? new List<string>()
             : shopSource.MapIds.Select(c => this.mapSheet.GetRow(c).FormattedName)).Distinct().ToList();
 
-        var level = asSources.First().FishingSpotRow.Base.GatheringLevel;
+        var level = asSources.First().FishParameter.Base.FishingSpot.Value.GatheringLevel;
         ImGui.Text("Level:" + (level == 0 ? "N/A" : level));
 
         if (maps.Count != 0)
@@ -58,7 +58,7 @@ public class ItemFishingSourceRenderer : ItemInfoRenderer<ItemFishingSource>
 
         var maps = asSource.MapIds?.Select(c => this.mapSheet.GetRow(c).FormattedName).Distinct().ToList() ?? [];
 
-        var level = asSource.FishingSpotRow.Base.GatheringLevel;
+        var level = asSource.FishParameter.Base.FishingSpot.Value.GatheringLevel;
         ImGui.Text("Level:" + (level == 0 ? "N/A" : level));
 
         if (maps.Count != 0)

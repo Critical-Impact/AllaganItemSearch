@@ -9,12 +9,12 @@ using ImGuiNET;
 
 namespace AllaganItemSearch.ItemRenderers;
 
-public class ItemGlamourReadySetItemSourceRenderer : ItemInfoRenderer<ItemGlamourReadySetItemSource>
+public class ItemGlamourReadySetSourceRenderer : ItemInfoRenderer<ItemGlamourReadySetSource>
 {
     public override RendererType RendererType => RendererType.Use;
-    public override ItemInfoType Type => ItemInfoType.GlamourReadySetItem;
-    public override string SingularName => "Glamour Ready Set Item";
-    public override string HelpText => "Is the item part of a 'Glamour Ready' outfit?";
+    public override ItemInfoType Type => ItemInfoType.GlamourReadySet;
+    public override string SingularName => "Glamour Ready Set";
+    public override string HelpText => "Is the item the combined item of a glamour ready item set?";
 
     public override bool ShouldGroup => true;
 

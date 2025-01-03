@@ -40,4 +40,5 @@ public static class Icons
     public const int TableIcon = 51621;
     public const int DyeIcon = 60147;
     public const int MannequinIcon = 66460;
+    public const int DraftBook = 26066;
 }
