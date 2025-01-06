@@ -4,6 +4,7 @@ using System.Numerics;
 using System.Web;
 
 using AllaganItemSearch.Filters;
+using AllaganItemSearch.ItemRenderers;
 using AllaganItemSearch.Mediator;
 using AllaganItemSearch.Services;
 using AllaganItemSearch.Settings;
@@ -50,6 +51,7 @@ public class MainWindow : ExtendedWindow
     private bool tryOn;
 
     private bool filterMenuOpen;
+    private readonly StringFilter filterSearchField;
 
     public MainWindow(
         IFont font,
@@ -65,7 +67,8 @@ public class MainWindow : ExtendedWindow
         IKeyState keyState,
         ITryOnService tryOnService,
         ChatService chatService,
-        IClipboardService clipboardService)
+        IClipboardService clipboardService,
+        StringFilter.Factory stringFilterFactory)
         : base(mediatorService, imGuiService, "Allagan Item Search##AllaganItemSearch")
     {
         this.font = font;
@@ -82,6 +85,7 @@ public class MainWindow : ExtendedWindow
         this.Flags = ImGuiWindowFlags.MenuBar;
         this.SizeCondition = ImGuiCond.FirstUseEver;
         this.Size = new Vector2(400, 400);
+        this.filterSearchField = stringFilterFactory.Invoke("search", "Filter Search:", "Type in the name of the filter you are looking for.",row => "");
     }
 
     public void DrawMenuBar()
@@ -482,10 +486,62 @@ public class MainWindow : ExtendedWindow
             this.DrawFilter(filter);
         }
         ImGui.Separator();
-        foreach (var filter in this.filterService.Filters.Where(c => !this.configuration.IsFieldPinned(c.Key)))
+        using (var tabBar = ImRaii.TabBar("TabBar"))
         {
-            this.DrawFilter(filter);
+            if (tabBar)
+            {
+                using (var tabItem = ImRaii.TabItem("Basic"))
+                {
+                    if (tabItem)
+                    {
+                        foreach (var filter in this.filterService.Filters.Where(c => c.RendererType == null && !this.configuration.IsFieldPinned(c.Key)))
+                        {
+                            this.DrawFilter(filter);
+                        }
+                    }
+                }
+                using (var tabItem = ImRaii.TabItem("Sources"))
+                {
+                    if (tabItem)
+                    {
+                        foreach (var filter in this.filterService.Filters.Where(c => c.RendererType == RendererType.Source && !this.configuration.IsFieldPinned(c.Key)))
+                        {
+                            this.DrawFilter(filter);
+                        }
+                    }
+                }
+                using (var tabItem = ImRaii.TabItem("Uses"))
+                {
+                    if (tabItem)
+                    {
+                        foreach (var filter in this.filterService.Filters.Where(c => c.RendererType == RendererType.Use && !this.configuration.IsFieldPinned(c.Key)))
+                        {
+                            this.DrawFilter(filter);
+                        }
+                    }
+                }
+
+                using (var tabItem = ImRaii.TabItem("Search", ImGuiTabItemFlags.NoTooltip))
+                {
+                    if (tabItem)
+                    {
+                        this.filterSearchField.Draw(this.filterState);
+
+                        var currentValue = this.filterSearchField.CurrentValue(this.filterState).ToLower();
+                        if (currentValue != string.Empty)
+                        {
+                            foreach (var filter in this.filterService.Filters.Where(
+                                         c => c.Name.ToLower().PassesFilter(
+                                             currentValue)))
+                            {
+                                this.DrawFilter(filter);
+                            }
+                        }
+                    }
+                }
+            }
         }
+
     }
 
     private void DrawFilter(IItemFilter filter)
@@ -576,6 +632,17 @@ public class MainWindow : ExtendedWindow
                             if (tooltip)
                             {
                                 ImGui.TextUnformatted(filter.HelpText);
+                                if (filter is StringFilter)
+                                {
+                                    ImGui.Separator();
+                                    ImGui.TextUnformatted(
+                                        "When searching the following operators can be used to compare: ");
+                                    ImGui.TextUnformatted("");
+                                    ImGui.TextUnformatted("=, for exact comparisons");
+                                    ImGui.TextUnformatted("!, for inequality comparisons");
+                                    ImGui.TextUnformatted("||, search multiple expressions using OR");
+                                    ImGui.TextUnformatted("&&, search multiple expressions using AND");
+                                }
                             }
                         }
                     }

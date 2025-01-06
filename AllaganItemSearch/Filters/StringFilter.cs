@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using AllaganItemSearch.ItemRenderers;
+
 using AllaganLib.GameSheets.Sheets.Rows;
 using AllaganLib.Interface.FormFields;
 using AllaganLib.Interface.Services;
@@ -50,6 +52,10 @@ public class StringFilter : StringFormField<FilterState>, IItemFilter
     public override string Version => "1.0";
 
     public Func<ItemRow, string> Transformer => this.transformer;
+
+    public IReadOnlyList<ItemInfoRenderCategory>? Categories => null;
+
+    public RendererType? RendererType => null;
 
     public bool Match(FilterState filterState, ItemRow row)
     {

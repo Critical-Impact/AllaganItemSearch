@@ -174,25 +174,32 @@ public class FilterService : IDisposable
             if (this.itemInfoRenderService.SourceRenderersByItemInfoType.ContainsKey(source))
             {
                 var renderer = this.itemInfoRenderService.SourceRenderersByItemInfoType[source];
+                var yesNoChoiceFilter = this.yesNoChoiceFactory.Invoke(
+                    "s_" + source,
+                    "Source - " + renderer.SingularName,
+                    renderer.HelpText,
+                    row => row.HasSourcesByType(source));
+                yesNoChoiceFilter.RendererType = renderer.RendererType;
+                yesNoChoiceFilter.Categories = renderer.Categories;
                 sourceUseFilters.Add(
-                    this.yesNoChoiceFactory.Invoke(
-                        "s_" + source,
-                        "Source - " + renderer.SingularName,
-                        renderer.HelpText,
-                        row => row.HasSourcesByType(source)));
+                    yesNoChoiceFilter);
             }
         }
+
         foreach (var source in Enum.GetValues<ItemInfoType>())
         {
             if (this.itemInfoRenderService.UseRenderersByItemInfoType.ContainsKey(source))
             {
                 var renderer = this.itemInfoRenderService.UseRenderersByItemInfoType[source];
+                var yesNoChoiceFilter = this.yesNoChoiceFactory.Invoke(
+                    "u_" + source,
+                    "Use - " + renderer.SingularName,
+                    renderer.HelpText,
+                    row => row.HasUsesByType(source));
+                yesNoChoiceFilter.RendererType = renderer.RendererType;
+                yesNoChoiceFilter.Categories = renderer.Categories;
                 sourceUseFilters.Add(
-                    this.yesNoChoiceFactory.Invoke(
-                        "u_" + source,
-                        "Use - " + renderer.SingularName,
-                        renderer.HelpText,
-                        row => row.HasUsesByType(source)));
+                    yesNoChoiceFilter);
             }
         }
 

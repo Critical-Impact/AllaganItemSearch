@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using AllaganItemSearch.ItemRenderers;
+
 using AllaganLib.GameSheets.Sheets.Rows;
 using AllaganLib.Interface.FormFields;
 using AllaganLib.Interface.Services;
@@ -27,6 +29,10 @@ public class UintChoiceFilter : MultipleChoiceFormField<uint, FilterState>, IIte
         this.transformer = transformer;
         this.choices = choices;
     }
+
+    public IReadOnlyList<ItemInfoRenderCategory>? Categories => null;
+
+    public RendererType? RendererType => null;
 
     public override List<uint> DefaultValue { get; set; } = [];
 

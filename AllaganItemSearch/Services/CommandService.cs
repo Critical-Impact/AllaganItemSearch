@@ -1,6 +1,8 @@
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
+using AllaganItemSearch.Filters;
 using AllaganItemSearch.Windows;
 
 using Dalamud.Game.Command;
@@ -10,13 +12,26 @@ using Microsoft.Extensions.Hosting;
 
 namespace AllaganItemSearch.Services;
 
-public class CommandService(ICommandManager commandManager, MainWindow mainWindow) : IHostedService
+public class CommandService : IHostedService
 {
+    private readonly FilterState filterState;
     private readonly string[] commandName = { "/allaganitemsearch" , "/asearch"};
+    private readonly StringFilter nameFilter;
 
-    public ICommandManager CommandManager { get; } = commandManager;
+    public CommandService(ICommandManager commandManager, MainWindow mainWindow, FilterService filterService, FilterState filterState)
+    {
+        this.filterState = filterState;
+        this.CommandManager = commandManager;
+        this.MainWindow = mainWindow;
+        this.FilterService = filterService;
+        this.nameFilter = (StringFilter)this.FilterService.Filters.First(c => c.Key == "name");
+    }
 
-    public MainWindow MainWindow { get; } = mainWindow;
+    public ICommandManager CommandManager { get; }
+
+    public MainWindow MainWindow { get; }
+
+    public FilterService FilterService { get; }
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
@@ -26,7 +41,7 @@ public class CommandService(ICommandManager commandManager, MainWindow mainWindo
             commandName[i],
             new CommandInfo(this.OnCommand)
             {
-                HelpMessage = "Shows the Allagan Item Search main window.",
+                HelpMessage = "Shows the Allagan Item Search main window. Text arguments after the command will be put into the name search field.",
             });
         }
 
@@ -45,6 +60,14 @@ public class CommandService(ICommandManager commandManager, MainWindow mainWindo
 
     private void OnCommand(string command, string arguments)
     {
-        this.MainWindow.Toggle();
+        if (arguments.Length == 0)
+        {
+            this.MainWindow.Toggle();
+        }
+        else
+        {
+            this.MainWindow.IsOpen = true;
+            this.nameFilter.UpdateFilterConfiguration(this.filterState, arguments);
+        }
     }
 }

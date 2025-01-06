@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using AllaganItemSearch.ItemRenderers;
+
 using AllaganLib.GameSheets.Sheets.Rows;
 using AllaganLib.Interface.FormFields;
 using AllaganLib.Interface.Services;
@@ -25,6 +27,10 @@ public class YesNoChoiceFilter : ChoiceFormField<YesNoChoice, FilterState>, IIte
         this.helpText = helpText;
         this.transformer = transformer;
     }
+
+    public IReadOnlyList<ItemInfoRenderCategory>? Categories { get; set; }
+
+    public RendererType? RendererType { get; set; }
 
     public override YesNoChoice DefaultValue { get; set; } = YesNoChoice.NA;
 
