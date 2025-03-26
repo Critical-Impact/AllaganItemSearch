@@ -1,3 +1,5 @@
+using System;
+
 using AllaganLib.Shared.Time;
 
 namespace AllaganItemSearchMock;
