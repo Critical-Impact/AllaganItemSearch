@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -28,6 +29,16 @@ public class ItemInfoRenderService
                                                               .ToDictionary(c => c.Type, c => c);
         this.useRenderersByItemInfoType = itemInfoRenderers.Where(c => c.RendererType == RendererType.Use)
                                                            .ToDictionary(c => c.Type, c => c);
+
+#if DEBUG
+        foreach (var itemType in Enum.GetValues<ItemInfoType>())
+        {
+            if (!this.sourceRenderersByItemInfoType.ContainsKey(itemType) && !this.useRenderersByItemInfoType.ContainsKey(itemType))
+            {
+                this.pluginLog.Verbose($"Missing type {itemType}");
+            }
+        }
+#endif
     }
 
     public Dictionary<ItemInfoType, IItemInfoRenderer> UseRenderersByItemInfoType => this.useRenderersByItemInfoType;

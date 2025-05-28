@@ -98,7 +98,7 @@ public class FilterService : IDisposable
                 "Class Role",
                 "The class/job role",
                 row => row.ClassJobCategory?.ClassJobs.FirstOrDefault()
-                          ?.Base.RowId ??
+                          ?.Base.Role ??
                        0,
                 new Dictionary<uint, string>()
         {

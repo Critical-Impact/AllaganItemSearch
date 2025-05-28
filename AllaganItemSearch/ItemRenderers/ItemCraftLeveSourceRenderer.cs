@@ -20,7 +20,7 @@ public class ItemCraftLeveSourceRenderer : ItemInfoRenderer<ItemCraftLeveSource>
     public override Action<ItemSource> DrawTooltip => source =>
     {
         var asSource = this.AsSource(source);
-        var leveRow = asSource.CraftLeveRow.Base.Leve.Value;
+        var leveRow = asSource.CraftLeve.Value.Leve.Value;
         ImGui.Text("Leve: " + leveRow.Name.ExtractText());
         ImGui.Text("Class: " + leveRow.ClassJobCategory.Value.Name.ExtractText());
         ImGui.Text("EXP Reward: " + leveRow.ExpReward);
@@ -30,7 +30,7 @@ public class ItemCraftLeveSourceRenderer : ItemInfoRenderer<ItemCraftLeveSource>
     public override Func<ItemSource, string> GetName => source =>
     {
         var asSource = this.AsSource(source);
-        var leveRow = asSource.CraftLeveRow.Base.Leve.Value;
+        var leveRow = asSource.CraftLeve.Value.Leve.Value;
         return leveRow.Name.ExtractText();
     };
     public override Func<ItemSource, int> GetIcon => _ => Icons.LeveIcon;
