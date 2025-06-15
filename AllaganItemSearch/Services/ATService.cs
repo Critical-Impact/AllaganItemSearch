@@ -11,10 +11,11 @@ using Dalamud.Plugin.Ipc;
 using Dalamud.Plugin.Services;
 
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace AllaganItemSearch.Services;
 
-public class ATService(IPluginLog logger, MediatorService mediatorService, ICommandManager commandManager, IChatGui chatGui, IDalamudPluginInterface pluginInterface)
+public class ATService(ILogger<ATService> logger, MediatorService mediatorService, ICommandManager commandManager, IChatGui chatGui, IDalamudPluginInterface pluginInterface)
     : DisposableMediatorSubscriberBase(logger, mediatorService), IHostedService
 {
     private readonly IChatGui chatGui = chatGui;

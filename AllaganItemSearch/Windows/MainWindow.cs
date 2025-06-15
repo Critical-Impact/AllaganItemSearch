@@ -42,6 +42,7 @@ public class MainWindow : ExtendedWindow
     private readonly ITryOnService tryOnService;
     private readonly ChatService chatService;
     private readonly IClipboardService clipboardService;
+    private readonly ClearSearchOnCloseSetting clearSearchOnCloseSetting;
     private readonly ExcelSheet<Item> itemSheet;
     private readonly ExcelSheet<ClassJob> classJobSheet;
     private readonly NumberFormatInfo gilNumberFormat;
@@ -68,7 +69,8 @@ public class MainWindow : ExtendedWindow
         ITryOnService tryOnService,
         ChatService chatService,
         IClipboardService clipboardService,
-        StringFilter.Factory stringFilterFactory)
+        StringFilter.Factory stringFilterFactory,
+        ClearSearchOnCloseSetting clearSearchOnCloseSetting)
         : base(mediatorService, imGuiService, "Allagan Item Search##AllaganItemSearch")
     {
         this.font = font;
@@ -82,6 +84,7 @@ public class MainWindow : ExtendedWindow
         this.tryOnService = tryOnService;
         this.chatService = chatService;
         this.clipboardService = clipboardService;
+        this.clearSearchOnCloseSetting = clearSearchOnCloseSetting;
         this.Flags = ImGuiWindowFlags.MenuBar;
         this.SizeCondition = ImGuiCond.FirstUseEver;
         this.Size = new Vector2(400, 400);
@@ -359,7 +362,7 @@ public class MainWindow : ExtendedWindow
                 {
                     this.tryOnService.TryOnItem(item);
                 }
-                else if (this.keyState[VirtualKey.MENU])
+                else if (this.keyState[VirtualKey.MENU] || !this.tryOn)
                 {
                     this.MediatorService.Publish(new OpenMoreInformationMessage(item.RowId));
                 }
@@ -469,7 +472,7 @@ public class MainWindow : ExtendedWindow
                             ImGui.TextUnformatted("Shift: Try on");
                         }
 
-                        ImGui.TextUnformatted("Alt: More information");
+                        ImGui.TextUnformatted("Click/Alt: More information");
                     }
                 }
             }
@@ -647,6 +650,18 @@ public class MainWindow : ExtendedWindow
                         }
                     }
                 }
+            }
+        }
+    }
+
+    public override void OnClose()
+    {
+        base.OnClose();
+        if (this.clearSearchOnCloseSetting.CurrentValue(this.configuration))
+        {
+            foreach (var filter in this.filterService.Filters)
+            {
+                filter.Reset(this.filterState);
             }
         }
     }

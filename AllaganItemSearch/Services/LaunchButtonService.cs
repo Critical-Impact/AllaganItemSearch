@@ -15,6 +15,7 @@ using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace AllaganItemSearch.Services;
 
@@ -30,7 +31,7 @@ public class LaunchButtonService : DisposableMediatorSubscriberBase, IHostedServ
     private IReadOnlyTitleScreenMenuEntry? entry;
 
     public LaunchButtonService(
-        IPluginLog pluginLog,
+        ILogger<LaunchButtonService> pluginLog,
         MediatorService mediatorService,
         ITextureProvider textureProvider,
         ITitleScreenMenu titleScreenMenu,
@@ -85,7 +86,7 @@ public class LaunchButtonService : DisposableMediatorSubscriberBase, IHostedServ
         }
         catch (Exception ex)
         {
-            this.Logger.Error($"Could not register title screen menu entry:\n{ex}");
+            this.Logger.LogError($"Could not register title screen menu entry:\n{ex}");
         }
     }
 

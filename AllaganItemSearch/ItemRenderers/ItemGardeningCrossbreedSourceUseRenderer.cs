@@ -1,6 +1,4 @@
-using AllaganItemSearch.ItemRenderers;
-
-namespace InventoryTools.Logic.ItemRenderers;
+namespace AllaganItemSearch.ItemRenderers;
 
 public class ItemGardeningCrossbreedSourceUseRenderer : ItemGardeningCrossbreedSourceRenderer
 {

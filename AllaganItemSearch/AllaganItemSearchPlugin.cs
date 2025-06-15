@@ -9,6 +9,7 @@ using AllaganItemSearch.Settings.Layout;
 using AllaganItemSearch.Windows;
 using AllaganLib.Data.Service;
 using AllaganLib.GameSheets.Extensions;
+using AllaganLib.Interface.Services;
 using AllaganLib.Interface.Widgets;
 using AllaganLib.Interface.Wizard;
 using AllaganLib.Shared.Time;
@@ -27,6 +28,8 @@ using Lumina.Excel;
 using Lumina.Excel.Sheets;
 
 using Microsoft.Extensions.DependencyInjection;
+
+using ImGuiService = AllaganItemSearch.Services.ImGuiService;
 
 namespace AllaganItemSearch;
 
@@ -89,12 +92,14 @@ public class AllaganItemSearchPlugin : HostedPlugin
         containerBuilder.RegisterAssemblyTypes(dataAccess)
                         .Where(t => t.Name.EndsWith("Setting"))
                         .AsSelf()
-                        .AsImplementedInterfaces();
+                        .AsImplementedInterfaces()
+                        .SingleInstance();
 
         containerBuilder.RegisterAssemblyTypes(dataAccess)
                         .Where(t => t.Name.EndsWith("Feature"))
                         .AsSelf()
-                        .AsImplementedInterfaces();
+                        .AsImplementedInterfaces()
+                        .SingleInstance();
 
         containerBuilder.RegisterAssemblyTypes(dataAccess)
                         .Where(t => t.Name.EndsWith("SettingLayout"))
@@ -129,6 +134,9 @@ public class AllaganItemSearchPlugin : HostedPlugin
         containerBuilder.RegisterType<MainWindow>().As<Window>().AsSelf().SingleInstance();
         containerBuilder.RegisterType<ConfigWindow>().As<Window>().AsSelf().SingleInstance();
         containerBuilder.RegisterType<WizardWindow>().As<Window>().AsSelf().SingleInstance();
+
+        //Hotkey System
+        containerBuilder.RegisterType<HotkeyService<Configuration>>().AsSelf().AsImplementedInterfaces().SingleInstance();
 
         containerBuilder.Register(c => c.Resolve<IDataManager>().GameData).SingleInstance();
 

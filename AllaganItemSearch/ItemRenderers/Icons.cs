@@ -30,6 +30,7 @@ public static class Icons
     public const int Fate = 60458;
     public const int Spearfishing = 60039;
     public const int GoldChest = 60354;
+    public const int GoldChest2 = 65114;
     public const int ArmoireIcon = 52536;
     public const int LeveIcon = 61422;
     public const int FlameSealIcon = 65006;
@@ -43,4 +44,10 @@ public static class Icons
     public const int DraftBook = 26066;
     public const int SeedBagIcon = 60928;
     public const int TripleTriadIcon = 71101;
+    public const int CardPackIcon = 27661;
+    public const int CofferIcon = 26509;
+    public const int DeepDungeonIcon = 61824;
+    public const int FieldOpsIcon = 61837;
+    public const int PVPIcon = 60459;
+    public const int CollectableShopIcon = 60031;
 }

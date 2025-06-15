@@ -7,13 +7,15 @@ using AllaganLib.Interface.Converters;
 using AllaganLib.Interface.FormFields;
 using AllaganLib.Interface.Wizard;
 using Dalamud.Configuration;
+using Dalamud.Game.ClientState.Keys;
+
 using Newtonsoft.Json;
 
 namespace AllaganItemSearch;
 
 [Serializable]
 public class Configuration : IPluginConfiguration, IConfigurable<int?>, IConfigurable<bool?>, IConfigurable<Enum?>,
-                             IWizardConfiguration, IConfigurable<string?>, IConfigurable<FilterPanePosition>
+                             IWizardConfiguration, IConfigurable<string?>, IConfigurable<FilterPanePosition>, IConfigurable<VirtualKey[]?>
 {
     private HashSet<string>? wizardVersionsSeen1;
     private bool isConfigWindowMovable = true;
@@ -22,6 +24,7 @@ public class Configuration : IPluginConfiguration, IConfigurable<int?>, IConfigu
     private Dictionary<string, string> stringSettings = [];
     private Dictionary<string, Enum> enumSettings = [];
     private Dictionary<string, FilterPanePosition> filterPaneSettings = [];
+    private Dictionary<string, VirtualKey[]> virtualKeySettings = [];
     private HashSet<string> pinnedFields = [];
     private bool isDirty;
     private int version;
@@ -56,6 +59,12 @@ public class Configuration : IPluginConfiguration, IConfigurable<int?>, IConfigu
     {
         get => this.enumSettings;
         set => this.enumSettings = value;
+    }
+
+    public Dictionary<string, VirtualKey[]> VirtualKeySettings
+    {
+        get => this.virtualKeySettings;
+        set => this.virtualKeySettings = value;
     }
 
     public bool IsDirty
@@ -113,6 +122,20 @@ public class Configuration : IPluginConfiguration, IConfigurable<int?>, IConfigu
     public int? Get(string key)
     {
         return this.IntegerSettings.TryGetValue(key, out var value) ? value : null;
+    }
+
+    public void Set(string key, VirtualKey[]? newValue)
+    {
+        if (newValue == null)
+        {
+            this.VirtualKeySettings.Remove(key);
+        }
+        else
+        {
+            this.VirtualKeySettings[key] = newValue;
+        }
+
+        this.IsDirty = true;
     }
 
     public void Set(string key, FilterPanePosition newValue)
@@ -229,5 +252,10 @@ public class Configuration : IPluginConfiguration, IConfigurable<int?>, IConfigu
     FilterPanePosition IConfigurable<FilterPanePosition>.Get(string key)
     {
         return this.filterPaneSettings.GetValueOrDefault(key);
+    }
+
+    VirtualKey[]? IConfigurable<VirtualKey[]?>.Get(string key)
+    {
+        return this.VirtualKeySettings.GetValueOrDefault(key);
     }
 }
