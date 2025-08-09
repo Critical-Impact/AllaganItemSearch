@@ -10,7 +10,7 @@ using Dalamud.Interface.Textures;
 using Dalamud.Interface.Utility.Raii;
 using Dalamud.Plugin.Services;
 
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 
 namespace AllaganItemSearch.ItemRenderers;
 
@@ -40,7 +40,7 @@ public class ItemCraftRequirementSourceRenderer : ItemInfoRenderer<ItemCraftRequ
         ImGui.TextUnformatted($"Ingredient of Craft Recipe:");
         using (ImRaii.PushIndent())
         {
-            ImGui.Image(this.textureProvider.GetFromGameIcon(new GameIconLookup(asSource.Item.Icon)).GetWrapOrEmpty().ImGuiHandle, new Vector2(16,16));
+            ImGui.Image(this.textureProvider.GetFromGameIcon(new GameIconLookup(asSource.Item.Icon)).GetWrapOrEmpty().Handle, new Vector2(16,16));
             ImGui.SameLine();
             ImGui.TextUnformatted(this.GetName(source));
         }

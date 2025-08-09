@@ -8,7 +8,7 @@ using AllaganLib.GameSheets.Sheets;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 
 namespace AllaganItemSearch.ItemRenderers;
 

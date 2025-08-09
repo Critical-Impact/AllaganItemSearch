@@ -5,7 +5,7 @@ using AllaganItemSearch.Windows;
 using DalaMock.Core.Mocks;
 using DalaMock.Host.Mediator;
 
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 
 namespace AllaganItemSearchMock;
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using AllaganLib.GameSheets.Caches;
 using AllaganLib.GameSheets.ItemSources;
 
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 
 namespace AllaganItemSearch.ItemRenderers;
 

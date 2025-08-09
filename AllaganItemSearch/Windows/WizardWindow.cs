@@ -7,7 +7,7 @@ using AllaganItemSearch.Services;
 
 using DalaMock.Host.Mediator;
 
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 
 namespace AllaganItemSearch.Windows;
 

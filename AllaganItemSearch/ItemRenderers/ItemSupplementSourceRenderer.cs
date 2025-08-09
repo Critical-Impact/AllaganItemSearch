@@ -10,7 +10,7 @@ using Dalamud.Interface.Textures;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 
 namespace AllaganItemSearch.ItemRenderers;
 
@@ -354,7 +354,7 @@ public abstract class ItemSupplementUseRenderer<T> : ItemSupplementSourceRendere
     {
         foreach (var source in sources)
         {
-            ImGui.Image(this.TextureProvider.GetFromGameIcon(new(source.Item.Icon)).GetWrapOrEmpty().ImGuiHandle, new Vector2(18,18) * ImGui.GetIO().FontGlobalScale);
+            ImGui.Image(this.TextureProvider.GetFromGameIcon(new(source.Item.Icon)).GetWrapOrEmpty().Handle, new Vector2(18,18) * ImGui.GetIO().FontGlobalScale);
             ImGui.SameLine();
             ImGui.Text(source.Item.NameString);
         }
@@ -362,7 +362,7 @@ public abstract class ItemSupplementUseRenderer<T> : ItemSupplementSourceRendere
 
     public override Action<ItemSource> DrawTooltip => source =>
     {
-        ImGui.Image(this.TextureProvider.GetFromGameIcon(new(source.Item.Icon)).GetWrapOrEmpty().ImGuiHandle, new Vector2(18,18) * ImGui.GetIO().FontGlobalScale);
+        ImGui.Image(this.TextureProvider.GetFromGameIcon(new(source.Item.Icon)).GetWrapOrEmpty().Handle, new Vector2(18,18) * ImGui.GetIO().FontGlobalScale);
         ImGui.SameLine();
         ImGui.Text(source.Item.NameString);
     };
@@ -390,7 +390,7 @@ public abstract class ItemSupplementSourceRenderer<T> : ItemInfoRenderer<T> wher
     {
         foreach (var source in sources)
         {
-            ImGui.Image(this.TextureProvider.GetFromGameIcon(new GameIconLookup(source.CostItem!.Icon)).GetWrapOrEmpty().ImGuiHandle, new Vector2(18,18) * ImGui.GetIO().FontGlobalScale);
+            ImGui.Image(this.TextureProvider.GetFromGameIcon(new GameIconLookup(source.CostItem!.Icon)).GetWrapOrEmpty().Handle, new Vector2(18,18) * ImGui.GetIO().FontGlobalScale);
             ImGui.SameLine();
             ImGui.Text(source.CostItem!.NameString);
         }
@@ -398,7 +398,7 @@ public abstract class ItemSupplementSourceRenderer<T> : ItemInfoRenderer<T> wher
 
     public override Action<ItemSource> DrawTooltip => source =>
     {
-        ImGui.Image(this.TextureProvider.GetFromGameIcon(new GameIconLookup(source.CostItem!.Icon)).GetWrapOrEmpty().ImGuiHandle, new Vector2(18,18) * ImGui.GetIO().FontGlobalScale);
+        ImGui.Image(this.TextureProvider.GetFromGameIcon(new GameIconLookup(source.CostItem!.Icon)).GetWrapOrEmpty().Handle, new Vector2(18,18) * ImGui.GetIO().FontGlobalScale);
         ImGui.SameLine();
         ImGui.Text(source.CostItem!.NameString);
     };

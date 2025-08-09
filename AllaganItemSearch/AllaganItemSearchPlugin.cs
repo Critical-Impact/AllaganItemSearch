@@ -74,6 +74,14 @@ public class AllaganItemSearchPlugin : HostedPlugin
         this.Start();
     }
 
+    public override HostedPluginOptions ConfigureOptions()
+    {
+        return new HostedPluginOptions()
+        {
+            UseMediatorService = true
+        };
+    }
+
     public override void ConfigureContainer(ContainerBuilder containerBuilder)
     {
         var dataAccess = Assembly.GetExecutingAssembly();
@@ -111,7 +119,6 @@ public class AllaganItemSearchPlugin : HostedPlugin
         containerBuilder.RegisterType<InstallerWindowService>().SingleInstance();
         containerBuilder.RegisterType<ImGuiService>().AsSelf().As<AllaganLib.Interface.Services.ImGuiService>()
                         .SingleInstance();
-        containerBuilder.RegisterType<MediatorService>().SingleInstance();
         containerBuilder.RegisterType<CommandService>().SingleInstance();
         containerBuilder.RegisterType<CsvLoaderService>().SingleInstance();
         containerBuilder.RegisterType<AutoSaveService>().SingleInstance();

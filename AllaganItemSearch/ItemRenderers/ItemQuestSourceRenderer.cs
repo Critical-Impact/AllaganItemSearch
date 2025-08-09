@@ -13,7 +13,7 @@ using Dalamud.Interface.Utility.Raii;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 
 using Lumina.Excel.Sheets;
 
@@ -83,7 +83,7 @@ public class ItemQuestSourceRenderer : ItemInfoRenderer<ItemQuestSource>
                     {
                         ImGui.Image(
                             this.textureProvider.GetFromGameIcon(new GameIconLookup(item.Icon)).GetWrapOrEmpty()
-                                .ImGuiHandle, new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale);
+                                .Handle, new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale);
                         ImGui.SameLine();
                         var itemName = item.NameString;
                         var count = 1;
@@ -109,7 +109,7 @@ public class ItemQuestSourceRenderer : ItemInfoRenderer<ItemQuestSource>
                     {
                         ImGui.Image(
                             this.textureProvider.GetFromGameIcon(new GameIconLookup(item.Icon)).GetWrapOrEmpty()
-                                .ImGuiHandle, new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale);
+                                .Handle, new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale);
                         ImGui.SameLine();
                         var itemName = item.NameString;
                         var count = jobReward.RewardAmount[index];
@@ -132,7 +132,7 @@ public class ItemQuestSourceRenderer : ItemInfoRenderer<ItemQuestSource>
                 {
                     ImGui.Image(
                         this.textureProvider.GetFromGameIcon(new GameIconLookup(item.Icon)).GetWrapOrEmpty()
-                            .ImGuiHandle, new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale);
+                            .Handle, new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale);
                     ImGui.SameLine();
                     var itemName = item.NameString;
                     var count = catalystCount;
@@ -154,7 +154,7 @@ public class ItemQuestSourceRenderer : ItemInfoRenderer<ItemQuestSource>
                 {
                     ImGui.Image(
                         this.textureProvider.GetFromGameIcon(new GameIconLookup(item.Icon)).GetWrapOrEmpty()
-                            .ImGuiHandle, new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale);
+                            .Handle, new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale);
                     ImGui.SameLine();
                     var itemName = item.NameString;
                     var count = optionalRewardCount;
@@ -183,7 +183,7 @@ public class ItemQuestSourceRenderer : ItemInfoRenderer<ItemQuestSource>
                     {
                         ImGui.Image(
                             this.textureProvider.GetFromGameIcon(new GameIconLookup(item.Icon)).GetWrapOrEmpty()
-                                .ImGuiHandle, new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale);
+                                .Handle, new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale);
                         ImGui.SameLine();
                         var itemName = item.NameString;
                         var count = jobReward.RequiredAmount[index];

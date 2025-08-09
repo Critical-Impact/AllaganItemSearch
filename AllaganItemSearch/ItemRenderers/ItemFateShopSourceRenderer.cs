@@ -13,7 +13,7 @@ using Dalamud.Interface.Textures;
 using Dalamud.Interface.Utility.Raii;
 using Dalamud.Plugin.Services;
 
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 
 namespace AllaganItemSearch.ItemRenderers;
 
@@ -77,7 +77,7 @@ public class ItemFateShopSourceRenderer : ItemInfoRenderer<ItemFateShopSource>
         {
             foreach (var reward in asSource.ShopListing.Rewards)
             {
-                ImGui.Image(this.textureProvider.GetFromGameIcon(new GameIconLookup(reward.Item.Icon)).GetWrapOrEmpty().ImGuiHandle, new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale);
+                ImGui.Image(this.textureProvider.GetFromGameIcon(new GameIconLookup(reward.Item.Icon)).GetWrapOrEmpty().Handle, new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale);
                 ImGui.SameLine();
                 var itemName = reward.Item.NameString;
                 var count = reward.Count;
@@ -86,7 +86,7 @@ public class ItemFateShopSourceRenderer : ItemInfoRenderer<ItemFateShopSource>
                 if (reward.IsHq == true)
                 {
                     ImGui.Image(
-                        this.imGuiService.LoadImage("Hq").GetWrapOrEmpty().ImGuiHandle,
+                        this.imGuiService.LoadImage("Hq").GetWrapOrEmpty().Handle,
                         new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale);
                 }
             }
@@ -96,7 +96,7 @@ public class ItemFateShopSourceRenderer : ItemInfoRenderer<ItemFateShopSource>
         {
             foreach (var cost in asSource.ShopListing.Costs)
             {
-                ImGui.Image(this.textureProvider.GetFromGameIcon(new GameIconLookup(cost.Item.Icon)).GetWrapOrEmpty().ImGuiHandle, new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale);
+                ImGui.Image(this.textureProvider.GetFromGameIcon(new GameIconLookup(cost.Item.Icon)).GetWrapOrEmpty().Handle, new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale);
                 ImGui.SameLine();
                 var itemName = cost.Item.NameString;
                 var count = cost.Count;
@@ -105,7 +105,7 @@ public class ItemFateShopSourceRenderer : ItemInfoRenderer<ItemFateShopSource>
                 if (cost.IsHq == true)
                 {
                     ImGui.Image(
-                        this.imGuiService.LoadImage("Hq").GetWrapOrEmpty().ImGuiHandle,
+                        this.imGuiService.LoadImage("Hq").GetWrapOrEmpty().Handle,
                         new Vector2(18, 18) * ImGui.GetIO().FontGlobalScale);
                 }
             }

@@ -8,7 +8,7 @@ using Dalamud.Interface.Utility.Raii;
 
 using Humanizer;
 
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 
 namespace AllaganItemSearch.ItemRenderers;
 

@@ -8,7 +8,7 @@ using AllaganLib.Shared.Extensions;
 
 using Dalamud.Game.Text;
 
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 
 namespace AllaganItemSearch.ItemRenderers;
 

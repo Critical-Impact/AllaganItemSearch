@@ -10,7 +10,7 @@ using AllaganLib.Shared.Time;
 using Dalamud.Interface.Colors;
 using Dalamud.Interface.Utility.Raii;
 
-using ImGuiNET;
+using Dalamud.Bindings.ImGui;
 
 namespace AllaganItemSearch.ItemRenderers;
 
