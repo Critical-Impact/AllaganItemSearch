@@ -25,11 +25,6 @@ public class ItemDungeonChestSourceRenderer : ItemInfoRenderer<ItemDungeonChestS
     {
         var asSource = this.AsSource(source);
         ImGui.Text("Dungeon: " + asSource.ContentFinderCondition.FormattedName);
-        using (ImRaii.PushIndent())
-        {
-            ImGui.Text(
-                $"Chest {asSource.DungeonChest.ChestNo + 1} ({asSource.DungeonChest.Position.X} / {asSource.DungeonChest.Position.Y})");
-        }
     };
 
     public override Func<ItemSource, string> GetName => source =>
@@ -46,14 +41,6 @@ public class ItemDungeonChestSourceRenderer : ItemInfoRenderer<ItemDungeonChestS
         foreach (var dungeon in groupedByDungeon)
         {
             ImGui.Text("Dungeon: " + dungeon.First().ContentFinderCondition.Base.Name.ExtractText());
-            using (ImRaii.PushIndent())
-            {
-                foreach (var chest in dungeon.OrderBy(c => c.DungeonChest.ChestNo))
-                {
-                    ImGui.Text(
-                        $"Chest {chest.DungeonChest.ChestNo + 1} ({chest.DungeonChest.Position.X} / {chest.DungeonChest.Position.Y})");
-                }
-            }
         }
 
     };

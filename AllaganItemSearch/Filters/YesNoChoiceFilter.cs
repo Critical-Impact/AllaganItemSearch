@@ -84,6 +84,11 @@ public class YesNoChoiceFilter : ChoiceFormField<YesNoChoice, FilterState>, IIte
             });
     }
 
+    public override bool Equal(YesNoChoice item1, YesNoChoice item2)
+    {
+        return item1 == item2;
+    }
+
     public override Dictionary<YesNoChoice, string> Choices => new Dictionary<YesNoChoice, string>
     {
         [YesNoChoice.NA] = "Not Set",

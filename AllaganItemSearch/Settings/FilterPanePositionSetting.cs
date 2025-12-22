@@ -29,6 +29,11 @@ public class FilterPanePositionSetting : ChoiceFormField<FilterPanePosition, Con
 
     public override string Version { get; } = "1.0.0.0";
 
+    public override bool Equal(FilterPanePosition item1, FilterPanePosition item2)
+    {
+        return item1 == item2;
+    }
+
     public override Dictionary<FilterPanePosition, string> Choices => new Dictionary<FilterPanePosition, string>
     {
         { FilterPanePosition.Left, "Left" },
