@@ -34,6 +34,7 @@ jobs:
         uses: ffurrer2/extract-release-notes@v2
         with:
           release_notes_file: notes.md
+          changelog_file: ${{ env.INTERNAL_NAME }}/CHANGELOG.md
 
       - name: Create release
         env:
