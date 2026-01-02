@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Dalamud.NET.Sdk/14.0.1">
     <PropertyGroup>
-        <Version>1.0.0.2</Version>
         <Description>A plugin designed for quickly searching through all in-game items, providing detailed information on gear, crafting materials, and collectibles.</Description>
         <PackageProjectUrl>https://github.com/Critical-Impact/AllaganItemSearch</PackageProjectUrl>
         <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
@@ -48,5 +47,9 @@
 
     <ItemGroup>
         <AdditionalFiles Include="stylecop.json"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="CHANGELOG.md" />
     </ItemGroup>
 </Project>
