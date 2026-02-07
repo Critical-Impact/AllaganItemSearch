@@ -12,8 +12,8 @@ namespace AllaganItemSearch.Services;
 
 public class ChatService
 {
-    private readonly IKeyState keyState;
     private readonly IChatGui chatGui;
+    private readonly IKeyState keyState;
 
     public ChatService(IKeyState keyState, IChatGui chatGui)
     {

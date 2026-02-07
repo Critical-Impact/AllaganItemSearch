@@ -6,31 +6,33 @@ using AllaganLib.GameSheets.Caches;
 using AllaganLib.GameSheets.ItemSources;
 using AllaganLib.GameSheets.Sheets;
 
+using Dalamud.Bindings.ImGui;
 using Dalamud.Interface.Utility.Raii;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
-
-using Dalamud.Bindings.ImGui;
 
 namespace AllaganItemSearch.ItemRenderers;
 
 public class ItemCollectablesShopUseRenderer : ItemCollectablesShopSourceRenderer
 {
-    private readonly ItemSheet _itemSheet;
+    private readonly ItemSheet itemSheet;
+
     public override string HelpText => "Can the item be spent at a collectables exchange shop?";
+
     public ItemCollectablesShopUseRenderer(MapSheet mapSheet, ItemSheet itemSheet)
         : base(mapSheet, itemSheet)
     {
-        this._itemSheet = itemSheet;
+        this.itemSheet = itemSheet;
     }
 
     public override Action<List<ItemSource>>? DrawTooltipGrouped => sources =>
     {
-        var asSources = AsSource(sources);
+        var asSources = this.AsSource(sources);
 
         var maps = asSources.SelectMany(shopSource => shopSource.MapIds == null || shopSource.MapIds.Count == 0
-            ? new List<string>()
-            : shopSource.MapIds.Select(c => this.MapSheet.GetRow(c).FormattedName)).Distinct().ToList();
+                                                          ? new List<string>()
+                                                          : shopSource.MapIds.Select(c => this.MapSheet.GetRow(c)
+                                                              .FormattedName)).Distinct().ToList();
 
         ImGui.Text("Items that can be purchased:");
 
@@ -49,32 +51,39 @@ public class ItemCollectablesShopUseRenderer : ItemCollectablesShopSourceRendere
 public class ItemCollectablesShopSourceRenderer : ItemInfoRenderer<ItemCollectablesShopSource>
 {
     public MapSheet MapSheet { get; }
-    private readonly ItemSheet _itemSheet;
+
+    private readonly ItemSheet itemSheet;
 
     public ItemCollectablesShopSourceRenderer(MapSheet mapSheet, ItemSheet itemSheet)
     {
         this.MapSheet = mapSheet;
-        this._itemSheet = itemSheet;
+        this.itemSheet = itemSheet;
     }
 
     public override RendererType RendererType => RendererType.Source;
+
     public override ItemInfoType Type => ItemInfoType.CollectablesShop;
+
     public override string SingularName => "Collectables Exchange Shop";
+
     public override string PluralName => "Collectables Exchange Shops";
+
     public override string HelpText => "Can the item be purchased from a collectables exchange shop?";
+
     public override bool ShouldGroup => true;
 
     public override byte MaxColumns => 1;
+
     public override IReadOnlyList<ItemInfoRenderCategory> Categories => [ItemInfoRenderCategory.Shop];
 
     public override Action<ItemSource> DrawTooltip => source =>
     {
-        var asSource = AsSource(source);
+        var asSource = this.AsSource(source);
     };
 
     public override Func<ItemSource, string> GetName => source =>
     {
-        var asSource = AsSource(source);
+        var asSource = this.AsSource(source);
         if (asSource.MapIds == null || asSource.MapIds.Count == 0)
         {
             return asSource.CollectablesShop.Name;

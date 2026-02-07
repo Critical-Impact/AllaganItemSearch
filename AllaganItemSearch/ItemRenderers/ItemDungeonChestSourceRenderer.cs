@@ -5,8 +5,6 @@ using System.Linq;
 using AllaganLib.GameSheets.Caches;
 using AllaganLib.GameSheets.ItemSources;
 
-using Dalamud.Interface.Utility.Raii;
-
 using Dalamud.Bindings.ImGui;
 
 namespace AllaganItemSearch.ItemRenderers;
@@ -14,11 +12,17 @@ namespace AllaganItemSearch.ItemRenderers;
 public class ItemDungeonChestSourceRenderer : ItemInfoRenderer<ItemDungeonChestSource>
 {
     public override RendererType RendererType => RendererType.Source;
+
     public override ItemInfoType Type => ItemInfoType.DungeonChest;
+
     public override string SingularName => "Dungeon Chest";
+
     public override string PluralName => "Dungeon Chests";
+
     public override string HelpText => "Can the item appear in a dungeon chest?";
+
     public override bool ShouldGroup => true;
+
     public override IReadOnlyList<ItemInfoRenderCategory> Categories => [ItemInfoRenderCategory.Duty];
 
     public override Action<ItemSource> DrawTooltip => source =>
@@ -42,7 +46,6 @@ public class ItemDungeonChestSourceRenderer : ItemInfoRenderer<ItemDungeonChestS
         {
             ImGui.Text("Dungeon: " + dungeon.First().ContentFinderCondition.Base.Name.ExtractText());
         }
-
     };
 
     public override Func<ItemSource, int> GetIcon => _ => Icons.GoldChest;

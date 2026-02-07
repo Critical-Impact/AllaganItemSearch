@@ -5,5 +5,6 @@ public enum SettingType
     General,
     Layout,
     Features,
-    Mqtt
+    Mqtt,
+    Troubleshooting,
 }

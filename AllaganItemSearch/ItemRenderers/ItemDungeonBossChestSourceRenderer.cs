@@ -6,20 +6,25 @@ using AllaganLib.GameSheets.Caches;
 using AllaganLib.GameSheets.Extensions;
 using AllaganLib.GameSheets.ItemSources;
 
-using Dalamud.Interface.Utility.Raii;
-
 using Dalamud.Bindings.ImGui;
+using Dalamud.Interface.Utility.Raii;
 
 namespace AllaganItemSearch.ItemRenderers;
 
 public class ItemDungeonBossChestSourceRenderer : ItemInfoRenderer<ItemDungeonBossChestSource>
 {
     public override RendererType RendererType => RendererType.Source;
+
     public override ItemInfoType Type => ItemInfoType.DungeonBossChest;
+
     public override string SingularName => "Dungeon Boss Chest";
+
     public override string PluralName => "Dungeon Boss Chests";
+
     public override string HelpText => "Can the item appear in a dungeon boss chest?";
+
     public override bool ShouldGroup => true;
+
     public override IReadOnlyList<ItemInfoRenderCategory> Categories => [ItemInfoRenderCategory.Duty];
 
     public override Action<ItemSource> DrawTooltip => source =>
@@ -28,7 +33,9 @@ public class ItemDungeonBossChestSourceRenderer : ItemInfoRenderer<ItemDungeonBo
         ImGui.Text("Dungeon: " + asSource.ContentFinderCondition.FormattedName);
         using (ImRaii.PushIndent())
         {
-            ImGui.Text(asSource.BNpcName.Base.Singular.ExtractText().ToTitleCase() + " (Boss " + (asSource.DungeonBoss.FightNo + 1) + ")");
+            ImGui.Text(
+                asSource.BNpcName.Base.Singular.ExtractText().ToTitleCase() + " (Boss " +
+                (asSource.DungeonBoss.FightNo + 1) + ")");
         }
     };
 
@@ -36,7 +43,8 @@ public class ItemDungeonBossChestSourceRenderer : ItemInfoRenderer<ItemDungeonBo
     {
         var asSource = this.AsSource(source);
 
-        return asSource.ContentFinderCondition.FormattedName + " - " + asSource.DungeonBoss.BNpcName.Value.Singular.ExtractText();
+        return asSource.ContentFinderCondition.FormattedName + " - " +
+               asSource.DungeonBoss.BNpcName.Value.Singular.ExtractText();
     };
 
     public override Action<List<ItemSource>>? DrawTooltipGrouped => sources =>
@@ -50,11 +58,12 @@ public class ItemDungeonBossChestSourceRenderer : ItemInfoRenderer<ItemDungeonBo
             {
                 foreach (var itemSource in dungeon.DistinctBy(c => c.DungeonBoss.BNpcName.RowId))
                 {
-                    ImGui.Text(itemSource.BNpcName.Base.Singular.ExtractText().ToTitleCase() + " (Boss " + (itemSource.DungeonBoss.FightNo + 1) + ")");
+                    ImGui.Text(
+                        itemSource.BNpcName.Base.Singular.ExtractText().ToTitleCase() + " (Boss " +
+                        (itemSource.DungeonBoss.FightNo + 1) + ")");
                 }
             }
         }
-
     };
 
     public override Func<ItemSource, int> GetIcon => _ => Icons.GoldChest;

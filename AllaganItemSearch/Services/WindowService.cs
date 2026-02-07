@@ -18,7 +18,7 @@ using Microsoft.Extensions.Hosting;
 namespace AllaganItemSearch.Services;
 
 /// <summary>
-/// Handles the drawing of plugin windows.
+///     Handles the drawing of plugin windows.
 /// </summary>
 public class WindowService(
     MediatorService mediatorService,
@@ -27,8 +27,6 @@ public class WindowService(
     IWindowSystemFactory windowSystemFactory,
     IFileDialogManager fileDialogManager) : IHostedService, IMediatorSubscriber, IDisposable
 {
-    public MediatorService MediatorService { get; } = mediatorService;
-
     public IDalamudPluginInterface PluginInterface { get; } = pluginInterface;
 
     public IEnumerable<Window> PluginWindows { get; } = pluginWindows;
@@ -36,6 +34,11 @@ public class WindowService(
     public IFileDialogManager FileDialogManager { get; } = fileDialogManager;
 
     public IWindowSystem WindowSystem { get; } = windowSystemFactory.Create("AllaganItemSearch");
+
+    public void Dispose()
+    {
+        this.MediatorService.UnsubscribeAll(this);
+    }
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
@@ -60,10 +63,7 @@ public class WindowService(
         return Task.CompletedTask;
     }
 
-    public void Dispose()
-    {
-        this.MediatorService.UnsubscribeAll(this);
-    }
+    public MediatorService MediatorService { get; } = mediatorService;
 
     private void CloseWindow(CloseWindowMessage obj)
     {
