@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.h
 ## [2.0.1] - 2026-02-07
 
 ### Added
-- Source/Uses added for Anima Shops, Anima Weapons, Zodiac Weapons, Gearsets, Pilgrims Traverse, Oizys,
+- Source/Uses added for Anima Shops, Anima Weapons, Zodiac Weapons, Gearsets, Pilgrims Traverse, Oizys
 - Some of the data required by Allagan Item Search is now cached in dalamud's DataShare.
 - Boot time after the initial load will be increased and other plugins relying on this will take advantage of it once updated.
 - If you prefer the data is not persisted, you can turn it off in settings via Troubleshooting -> Persist Cached Data
