@@ -58,7 +58,7 @@ public class UintRangeFilter : UintRangeFormField<FilterState>, IItemFilter
         set { }
     }
 
-    public override string Version => "1.0";
+    public override string Version { get; set; } = "1.0";
 
     public Func<ItemRow, uint> Transformer => this.transformer;
 

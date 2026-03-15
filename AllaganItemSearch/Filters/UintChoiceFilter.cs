@@ -56,7 +56,7 @@ public class UintChoiceFilter : MultipleChoiceFormField<uint, FilterState>, IIte
 
     public Func<ItemRow, uint> Transformer => this.transformer;
 
-    public override string Version => "1.0";
+    public override string Version { get; set; } = "1.0";
 
     public override bool ShowAddAll => false;
 

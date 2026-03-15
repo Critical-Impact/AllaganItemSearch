@@ -27,7 +27,7 @@ public class FilterPanePositionSetting : ChoiceFormField<FilterPanePosition, Con
 
     public override string HelpText { get; set; } = "What side should the filter pane be positioned?";
 
-    public override string Version { get; } = "1.0.0.0";
+    public override string Version { get; set; } = "1.0.0.0";
 
     public override bool Equal(FilterPanePosition item1, FilterPanePosition item2)
     {

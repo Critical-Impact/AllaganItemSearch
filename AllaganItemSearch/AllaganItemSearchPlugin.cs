@@ -47,37 +47,9 @@ public class AllaganItemSearchPlugin : HostedPlugin
     public AllaganItemSearchPlugin(
         IDalamudPluginInterface pluginInterface,
         IPluginLog pluginLog,
-        ICommandManager commandManager,
-        ITextureProvider textureProvider,
-        IGameInteropProvider gameInteropProvider,
-        IAddonLifecycle addonLifecycle,
-        IClientState clientState,
-        IGameInventory gameInventory,
-        IFramework framework,
-        IDataManager dataManager,
-        IChatGui chatGui,
-        IMarketBoard marketBoard,
-        ITitleScreenMenu titleScreenMenu,
-        IDtrBar dtrBar,
-        IGameGui gameGui,
-        IKeyState keyState)
+        IFramework framework)
         : base(
-            pluginInterface,
-            pluginLog,
-            commandManager,
-            textureProvider,
-            gameInteropProvider,
-            addonLifecycle,
-            clientState,
-            gameInventory,
-            framework,
-            dataManager,
-            chatGui,
-            marketBoard,
-            titleScreenMenu,
-            dtrBar,
-            gameGui,
-            keyState)
+            pluginInterface)
     {
         this.bootService = new BootConfigurationService(pluginInterface, framework, pluginLog);
         this.CreateHost();

@@ -31,7 +31,7 @@ public class MainWindowHotKeySetting : HotkeyFormField<Configuration>, ISetting,
 
     public override string HelpText { get; set; } = "The hotkey to open the main window";
 
-    public override string Version { get; } = "1.0.0.5";
+    public override string Version { get; set; } = "1.0.0.5";
 
     public SettingType Type { get; set; } = SettingType.Features;
 

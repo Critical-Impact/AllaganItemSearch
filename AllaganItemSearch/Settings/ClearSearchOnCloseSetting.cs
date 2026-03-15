@@ -14,7 +14,7 @@ public class ClearSearchOnCloseSetting(ImGuiService imGuiService) : BooleanFormF
 
     public override string HelpText { get; set; } = "Should the search be cleared when the main window is closed?";
 
-    public override string Version { get; } = "1.0.0.5";
+    public override string Version { get; set; } = "1.0.0.5";
 
     public SettingType Type { get; set; } = SettingType.General;
 }

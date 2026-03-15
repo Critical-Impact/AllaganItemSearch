@@ -49,7 +49,7 @@ public class StringFilter : StringFormField<FilterState>, IItemFilter
         set { }
     }
 
-    public override string Version => "1.0";
+    public override string Version { get; set; } = "1.0";
 
     public Func<ItemRow, string> Transformer => this.transformer;
 

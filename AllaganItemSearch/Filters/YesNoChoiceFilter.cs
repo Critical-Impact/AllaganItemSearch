@@ -52,7 +52,7 @@ public class YesNoChoiceFilter : ChoiceFormField<YesNoChoice, FilterState>, IIte
         set { }
     }
 
-    public override string Version => "1.0";
+    public override string Version { get; set; } = "1.0";
 
     public Func<ItemRow, bool> Transformer => this.transformer;
 

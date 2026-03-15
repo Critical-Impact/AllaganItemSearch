@@ -18,7 +18,7 @@ public class PersistDataSetting(ImGuiService imGuiService, BootConfiguration boo
     public override string HelpText { get; set; } =
         "Allagan Item Search has to calculate information when it first boots that can take upwards of 5-10 seconds depending on your computer. If this is on, that data is persisted between updates speeding up the boot time of the plugin.";
 
-    public override string Version { get; } = "2.0.1";
+    public override string Version { get; set; } = "2.0.1";
 
     public SettingType Type { get; set; } = SettingType.Troubleshooting;
 

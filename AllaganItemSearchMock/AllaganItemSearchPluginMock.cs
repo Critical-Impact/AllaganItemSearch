@@ -20,36 +20,10 @@ namespace AllaganItemSearchMock;
 public class AllaganItemSearchPluginMock(
     IDalamudPluginInterface pluginInterface,
     IPluginLog pluginLog,
-    ICommandManager commandManager,
-    ITextureProvider textureProvider,
-    IGameInteropProvider gameInteropProvider,
-    IAddonLifecycle addonLifecycle,
-    IClientState clientState,
-    IGameInventory gameInventory,
-    IFramework framework,
-    IDataManager dataManager,
-    IChatGui chatGui,
-    IMarketBoard marketBoard,
-    ITitleScreenMenu titleScreenMenu,
-    IDtrBar dtrBar,
-    IGameGui gameGui,
-    IKeyState keyState) : AllaganItemSearchPlugin(
+    IFramework framework) : AllaganItemSearchPlugin(
     pluginInterface,
     pluginLog,
-    commandManager,
-    textureProvider,
-    gameInteropProvider,
-    addonLifecycle,
-    clientState,
-    gameInventory,
-    framework,
-    dataManager,
-    chatGui,
-    marketBoard,
-    titleScreenMenu,
-    dtrBar,
-    gameGui,
-    keyState)
+    framework)
 {
     public override void ConfigureContainer(ContainerBuilder containerBuilder)
     {
