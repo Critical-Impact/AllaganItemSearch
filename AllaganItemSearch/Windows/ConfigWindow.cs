@@ -16,6 +16,7 @@ using DalaMock.Host.Mediator;
 using Dalamud.Interface.Utility.Raii;
 
 using Dalamud.Bindings.ImGui;
+using Dalamud.Interface.Windowing;
 
 namespace AllaganItemSearch.Windows;
 

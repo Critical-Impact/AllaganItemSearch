@@ -257,12 +257,9 @@ public class MainWindow : ExtendedWindow
 
                 if (ImGui.IsItemHovered())
                 {
-                    using(var tooltip = ImRaii.Tooltip())
+                    using(ImRaii.Tooltip())
                     {
-                        if (tooltip)
-                        {
-                            ImGui.TextUnformatted("Opens the dresser window and clicking an item automatically tries it on.");
-                        }
+                        ImGui.TextUnformatted("Opens the dresser window and clicking an item automatically tries it on.");
                     }
                 }
             }
@@ -377,103 +374,100 @@ public class MainWindow : ExtendedWindow
                 ImGui.OpenPopup("rMenu");
             }
             ImGui.SetNextWindowSizeConstraints(new Vector2(100,100), new Vector2(600,600));
-            using (var tooltip = ImRaii.Tooltip())
+            using (ImRaii.Tooltip())
             {
-                if (tooltip)
+                var availableWidth = ImGui.GetContentRegionAvail().X;
+                float imageStartX = availableWidth - 32;
+                ImGui.PushTextWrapPos(imageStartX);
+                ImGui.TextUnformatted(item.NameString);
+                ImGui.PopTextWrapPos();
+                ImGui.SameLine();
+                ImGui.SetCursorPosX(ImGui.GetCursorPosX() + ImGui.GetContentRegionAvail().X - 32);
+                ImGui.Image(this.textureProvider.GetFromGameIcon(new(item.Base.Icon)).GetWrapOrEmpty().Handle, new Vector2(32, 32));
+                ImGui.TextUnformatted(item.Base.ItemUICategory.Value.Name.ExtractText());
+                ImGui.Separator();
+                if (item.ClassJobCategory != null)
                 {
-                    var availableWidth = ImGui.GetContentRegionAvail().X;
-                    float imageStartX = availableWidth - 32;
-                    ImGui.PushTextWrapPos(imageStartX);
-                    ImGui.TextUnformatted(item.NameString);
+                    var classJobCategory = item.ClassJobCategory.Base.Name.ExtractText();
+                    if (classJobCategory != string.Empty)
+                    {
+                        ImGui.TextUnformatted(classJobCategory);
+                    }
+                }
+
+                ImGui.TextUnformatted($"Item Level {item.Base.LevelItem.RowId}");
+                if (item.ClassJobCategory != null)
+                {
+                    ImGui.TextUnformatted($"Equip Level {item.Base.LevelEquip}");
+                }
+
+                ImGui.TextUnformatted(item.FormattedRarity);
+
+                if (item.EquipRace != CharacterRace.Any && item.EquipRace != CharacterRace.None)
+                {
+                    ImGui.TextUnformatted($"Only equippable by {item.EquipRace}");
+                }
+
+                if (item.EquippableByGender != CharacterSex.Both && item.EquippableByGender != CharacterSex.NotApplicable)
+                {
+                    ImGui.TextUnformatted($"Only equippable by {item.EquippableByGender.ToString()}");
+                }
+
+                if (item.Base.CanBeHq)
+                {
+                    ImGui.TextUnformatted("Can be HQ");
+                }
+
+                if (item.Base.IsUnique)
+                {
+                    ImGui.TextUnformatted("Unique");
+                }
+
+                if (item.Base.IsUntradable)
+                {
+                    ImGui.TextUnformatted("Untradable");
+                }
+
+
+                if (item.Sources.Count > 0)
+                {
+                    ImGui.NewLine();
+                    ImGui.TextUnformatted("Available From: ");
+                    ImGui.Separator();
+                    ImGui.PushTextWrapPos();
+                    var sources = item.Sources.Select(c => c.Type).Distinct().Select(
+                                          c => this.itemInfoRenderService.GetSourceRendererByItemInfoType(c)
+                                                   ?.SingularName)
+                                      .Where(c => c != null).Select(c => c!);
+                    ImGui.TextUnformatted(string.Join(", ", sources));
                     ImGui.PopTextWrapPos();
-                    ImGui.SameLine();
-                    ImGui.SetCursorPosX(ImGui.GetCursorPosX() + ImGui.GetContentRegionAvail().X - 32);
-                    ImGui.Image(this.textureProvider.GetFromGameIcon(new(item.Base.Icon)).GetWrapOrEmpty().Handle, new Vector2(32, 32));
-                    ImGui.TextUnformatted(item.Base.ItemUICategory.Value.Name.ExtractText());
+                }
+
+
+                if (item.Uses.Count > 0)
+                {
+                    ImGui.NewLine();
+                    ImGui.TextUnformatted("Used In: ");
                     ImGui.Separator();
-                    if (item.ClassJobCategory != null)
+                    ImGui.PushTextWrapPos();
+                    var uses = item.Uses.Select(c => c.Type).Distinct().Select(
+                                          c => this.itemInfoRenderService.GetUseRendererByItemInfoType(c)
+                                                   ?.SingularName)
+                                      .Where(c => c != null).Select(c => c!);
+                    ImGui.TextUnformatted(string.Join(", ", uses));
+                    ImGui.PopTextWrapPos();
+                }
+
+                ImGui.Separator();
+                using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.DalamudGrey))
+                {
+                    ImGui.TextUnformatted("Ctrl: Link");
+                    if (item.CanTryOn)
                     {
-                        var classJobCategory = item.ClassJobCategory.Base.Name.ExtractText();
-                        if (classJobCategory != string.Empty)
-                        {
-                            ImGui.TextUnformatted(classJobCategory);
-                        }
+                        ImGui.TextUnformatted("Shift: Try on");
                     }
 
-                    ImGui.TextUnformatted($"Item Level {item.Base.LevelItem.RowId}");
-                    if (item.ClassJobCategory != null)
-                    {
-                        ImGui.TextUnformatted($"Equip Level {item.Base.LevelEquip}");
-                    }
-
-                    ImGui.TextUnformatted(item.FormattedRarity);
-
-                    if (item.EquipRace != CharacterRace.Any && item.EquipRace != CharacterRace.None)
-                    {
-                        ImGui.TextUnformatted($"Only equippable by {item.EquipRace}");
-                    }
-
-                    if (item.EquippableByGender != CharacterSex.Both && item.EquippableByGender != CharacterSex.NotApplicable)
-                    {
-                        ImGui.TextUnformatted($"Only equippable by {item.EquippableByGender.ToString()}");
-                    }
-
-                    if (item.Base.CanBeHq)
-                    {
-                        ImGui.TextUnformatted("Can be HQ");
-                    }
-
-                    if (item.Base.IsUnique)
-                    {
-                        ImGui.TextUnformatted("Unique");
-                    }
-
-                    if (item.Base.IsUntradable)
-                    {
-                        ImGui.TextUnformatted("Untradable");
-                    }
-
-
-                    if (item.Sources.Count > 0)
-                    {
-                        ImGui.NewLine();
-                        ImGui.TextUnformatted("Available From: ");
-                        ImGui.Separator();
-                        ImGui.PushTextWrapPos();
-                        var sources = item.Sources.Select(c => c.Type).Distinct().Select(
-                                              c => this.itemInfoRenderService.GetSourceRendererByItemInfoType(c)
-                                                       ?.SingularName)
-                                          .Where(c => c != null).Select(c => c!);
-                        ImGui.TextUnformatted(string.Join(", ", sources));
-                        ImGui.PopTextWrapPos();
-                    }
-
-
-                    if (item.Uses.Count > 0)
-                    {
-                        ImGui.NewLine();
-                        ImGui.TextUnformatted("Used In: ");
-                        ImGui.Separator();
-                        ImGui.PushTextWrapPos();
-                        var uses = item.Uses.Select(c => c.Type).Distinct().Select(
-                                              c => this.itemInfoRenderService.GetUseRendererByItemInfoType(c)
-                                                       ?.SingularName)
-                                          .Where(c => c != null).Select(c => c!);
-                        ImGui.TextUnformatted(string.Join(", ", uses));
-                        ImGui.PopTextWrapPos();
-                    }
-
-                    ImGui.Separator();
-                    using (ImRaii.PushColor(ImGuiCol.Text, ImGuiColors.DalamudGrey))
-                    {
-                        ImGui.TextUnformatted("Ctrl: Link");
-                        if (item.CanTryOn)
-                        {
-                            ImGui.TextUnformatted("Shift: Try on");
-                        }
-
-                        ImGui.TextUnformatted("Click/Alt: More information");
-                    }
+                    ImGui.TextUnformatted("Click/Alt: More information");
                 }
             }
         }
@@ -579,10 +573,7 @@ public class MainWindow : ExtendedWindow
                 {
                     using (var tooltip = ImRaii.Tooltip())
                     {
-                        if (tooltip)
-                        {
-                            ImGui.TextUnformatted("Clear");
-                        }
+                        ImGui.TextUnformatted("Clear");
                     }
                 }
             }
@@ -604,12 +595,9 @@ public class MainWindow : ExtendedWindow
                     btnColor.Pop(); // Not sure why this needs to be popped too, but apparently it does ^_^
                     if (ImGui.IsItemHovered())
                     {
-                        using (var tooltip = ImRaii.Tooltip())
+                        using (ImRaii.Tooltip())
                         {
-                            if (tooltip)
-                            {
-                                ImGui.TextUnformatted(isFieldPinned ? "Unpin" : "Pin");
-                            }
+                            ImGui.TextUnformatted(isFieldPinned ? "Unpin" : "Pin");
                         }
                     }
                 }
@@ -630,22 +618,19 @@ public class MainWindow : ExtendedWindow
                     font.Pop();
                     if (ImGui.IsItemHovered())
                     {
-                        using (var tooltip = ImRaii.Tooltip())
+                        using (ImRaii.Tooltip())
                         {
-                            if (tooltip)
+                            ImGui.TextUnformatted(filter.HelpText);
+                            if (filter is StringFilter)
                             {
-                                ImGui.TextUnformatted(filter.HelpText);
-                                if (filter is StringFilter)
-                                {
-                                    ImGui.Separator();
-                                    ImGui.TextUnformatted(
-                                        "When searching the following operators can be used to compare: ");
-                                    ImGui.TextUnformatted("");
-                                    ImGui.TextUnformatted("=, for exact comparisons");
-                                    ImGui.TextUnformatted("!, for inequality comparisons");
-                                    ImGui.TextUnformatted("||, search multiple expressions using OR");
-                                    ImGui.TextUnformatted("&&, search multiple expressions using AND");
-                                }
+                                ImGui.Separator();
+                                ImGui.TextUnformatted(
+                                    "When searching the following operators can be used to compare: ");
+                                ImGui.TextUnformatted("");
+                                ImGui.TextUnformatted("=, for exact comparisons");
+                                ImGui.TextUnformatted("!, for inequality comparisons");
+                                ImGui.TextUnformatted("||, search multiple expressions using OR");
+                                ImGui.TextUnformatted("&&, search multiple expressions using AND");
                             }
                         }
                     }
