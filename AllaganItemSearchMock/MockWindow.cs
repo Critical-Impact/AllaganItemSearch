@@ -3,6 +3,7 @@ using AllaganItemSearch.Services;
 using AllaganItemSearch.Windows;
 
 using DalaMock.Core.Mocks;
+using DalaMock.Core.Mocks.DalamudServices;
 using DalaMock.Host.Mediator;
 
 using Dalamud.Bindings.ImGui;

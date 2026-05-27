@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace AllaganItemSearchMock;
 
 public class AllaganItemSearchPluginMock(
+    MockReplacementContainer replacementContainer,
     IDalamudPluginInterface pluginInterface,
     IPluginLog pluginLog,
     IFramework framework) : AllaganItemSearchPlugin(
@@ -25,12 +26,12 @@ public class AllaganItemSearchPluginMock(
     pluginLog,
     framework)
 {
+    public override IReplacementContainer ReplacementContainer { get; } = replacementContainer;
+
     public override void ConfigureContainer(ContainerBuilder containerBuilder)
     {
         base.ConfigureContainer(containerBuilder);
         containerBuilder.RegisterType<MockWindowSystem>().AsSelf().As<IWindowSystem>().SingleInstance();
-        containerBuilder.RegisterType<MockFileDialogManager>().AsSelf().As<IFileDialogManager>().SingleInstance();
-        containerBuilder.RegisterType<MockFont>().AsSelf().As<IFont>().SingleInstance();
         containerBuilder.RegisterType<MockWindow>().AsSelf().As<Window>().SingleInstance();
         containerBuilder.RegisterType<MockBootService>().AsSelf().SingleInstance();
         containerBuilder.RegisterType<MockSeTime>().As<ISeTime>().SingleInstance();

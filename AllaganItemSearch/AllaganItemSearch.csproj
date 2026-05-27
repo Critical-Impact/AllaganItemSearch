@@ -7,11 +7,11 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AllaganLib.Data" Version="2.2.0" />
-    <PackageReference Include="AllaganLib.GameSheets" Version="2.2.0" />
+    <PackageReference Include="AllaganLib.GameSheets" Version="2.2.4" />
     <PackageReference Include="AllaganLib.Interface" Version="2.2.0" />
     <PackageReference Include="AllaganLib.Shared" Version="2.2.0" />
-    <PackageReference Include="DalaMock.Host" Version="5.1.0" />
-    <PackageReference Include="DalaMock.Shared" Version="5.1.0" />
+    <PackageReference Include="DalaMock.Host" Version="6.1.6" />
+    <PackageReference Include="DalaMock.Shared" Version="6.1.2" />
     <PackageReference Include="Humanizer" Version="3.0.10" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">
       <PrivateAssets>all</PrivateAssets>

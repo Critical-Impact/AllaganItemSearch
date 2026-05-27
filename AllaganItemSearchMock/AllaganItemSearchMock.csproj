@@ -53,12 +53,13 @@
     <ProjectReference Include="..\AllaganItemSearch\AllaganItemSearch.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DalaMock.Core" Version="5.0.2" />
+    <PackageReference Include="DalaMock.Core" Version="6.1.6" />
     <PackageReference Include="TextCopy" Version="6.2.1" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Update="DotNet.ReproducibleBuilds" Version="2.0.2" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Shaders/GLSL/imgui-vertex.glsl" LogicalName="imgui-vertex.glsl" />

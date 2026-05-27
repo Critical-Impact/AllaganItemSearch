@@ -1,10 +1,13 @@
 using System;
 using System.Globalization;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 using AllaganItemSearch.Boot;
 using AllaganItemSearch.Filters;
 using AllaganItemSearch.ItemRenderers;
+using AllaganItemSearch.Localizers;
 using AllaganItemSearch.Services;
 using AllaganItemSearch.Settings;
 using AllaganItemSearch.Settings.Layout;
@@ -52,8 +55,16 @@ public class AllaganItemSearchPlugin : HostedPlugin
             pluginInterface)
     {
         this.bootService = new BootConfigurationService(pluginInterface, framework, pluginLog);
-        this.CreateHost();
-        this.Start();
+    }
+
+    public override async Task PreCreatingAsync(CancellationToken cancellationToken)
+    {
+        await this.bootService.StartAsync(cancellationToken);
+    }
+
+    public override async Task StoppingAsync()
+    {
+        await this.bootService.DisposeAsync();
     }
 
     public override HostedPluginOptions ConfigureOptions()
@@ -97,6 +108,10 @@ public class AllaganItemSearchPlugin : HostedPlugin
                         .Where(t => t.Name.EndsWith("SettingLayout"))
                         .AsSelf()
                         .As<SettingPage>();
+
+        containerBuilder.RegisterAssemblyTypes(dataAccess)
+                        .AsClosedTypesOf(typeof(ILocalizer<>))
+                        .SingleInstance();
 
         // Services
         containerBuilder.RegisterType<WindowService>().SingleInstance();
@@ -145,7 +160,6 @@ public class AllaganItemSearchPlugin : HostedPlugin
                         .SingleInstance();
         containerBuilder.RegisterType<ConfigurationWizardService<Configuration>>().AsSelf().AsImplementedInterfaces()
                         .SingleInstance();
-        containerBuilder.RegisterType<Font>().As<IFont>().SingleInstance();
 
         // Filters
         containerBuilder.RegisterType<FilterService>().SingleInstance();
@@ -200,20 +214,5 @@ public class AllaganItemSearchPlugin : HostedPlugin
         serviceCollection.AddHostedService(p => p.GetRequiredService<ConfigurationLoaderService>());
         serviceCollection.AddHostedService(p => p.GetRequiredService<AutoSaveService>());
         serviceCollection.AddHostedService(p => p.GetRequiredService<ATService>());
-    }
-
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            this.bootService.Dispose();
-        }
-    }
-
-    public new void Dispose()
-    {
-        base.Dispose();
-        this.Dispose(true);
-        GC.SuppressFinalize(this);
     }
 }
