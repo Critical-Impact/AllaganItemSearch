@@ -53,7 +53,7 @@
     <ProjectReference Include="..\AllaganItemSearch\AllaganItemSearch.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DalaMock.Core" Version="6.1.6" />
+    <PackageReference Include="DalaMock.Core" Version="6.1.8" />
     <PackageReference Include="TextCopy" Version="6.2.1" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">
       <PrivateAssets>all</PrivateAssets>

@@ -4,9 +4,9 @@
     "net10.0-windows7.0": {
       "DalaMock.Core": {
         "type": "Direct",
-        "requested": "[6.1.6, )",
-        "resolved": "6.1.6",
-        "contentHash": "+xDdP9Qpb+Gq1zRXDuNJ+h7368aEKgGa/mGuewoN/MBH3SLppdFXg7ap+6VrImIfb1ObfDL0EyPmsDIOiLQLYQ==",
+        "requested": "[6.1.8, )",
+        "resolved": "6.1.8",
+        "contentHash": "VWxRNMY6hQlaPS2Onru6wZiARDhqIe1tnNTV4Kc0r0ogokiAgl+gAYBjtrJ6in5kHD54t5n2YJ1Qqht637PpYg==",
         "dependencies": {
           "Autofac": "9.0.0",
           "DalaMock.Shared": "6.1.2",
@@ -62,14 +62,14 @@
       },
       "AllaganLib.GameSheets": {
         "type": "Transitive",
-        "resolved": "2.2.4",
-        "contentHash": "4CeKEUeSWYWObIIpMPrm46WnWl6KtNn2CEhtNk0cWmHZM+2RQjK+2zj8IkR36vPzsrv5SJNdHm5uzcTnX/K0/A==",
+        "resolved": "2.2.7",
+        "contentHash": "zSwjyyosxGk9WqKfIHnGNhhAHbHHzSN1YIx6Q0hCSmm10Drzq5V4f1bllx1CY6f1BiXzUTMKFq8MagNLnlVb2A==",
         "dependencies": {
           "AllaganLib.Shared": "2.2.0",
           "Autofac": "9.0.0",
           "Autofac.Extensions.DependencyInjection": "10.0.0",
           "CSVFile": "3.2.1",
-          "LuminaSupplemental.Excel": "4.3.4"
+          "LuminaSupplemental.Excel": "5.1.1"
         }
       },
       "AllaganLib.Interface": {
@@ -628,8 +628,8 @@
       },
       "LuminaSupplemental.Excel": {
         "type": "Transitive",
-        "resolved": "4.3.4",
-        "contentHash": "HKfQt9eijdKggL3+omdyYg0+vm2e2EAdewnEwzaEbBLJ+pGqhuHQiCwOk2eoVc1zFWcnWJcYoF2bd3r0TCCOsw==",
+        "resolved": "5.1.1",
+        "contentHash": "BVctu4W2K0FP3o4DVLyQH10kcj+RhrCGFXwg/kT+yuK5cOF5tp6FTHlTi5Q/ytve48x/qWCwocpowG7GFa+HdA==",
         "dependencies": {
           "CSVFile": "3.2.1",
           "CsvHelper": "30.0.1",
@@ -1132,7 +1132,7 @@
         "type": "Project",
         "dependencies": {
           "AllaganLib.Data": "[2.2.0, )",
-          "AllaganLib.GameSheets": "[2.2.4, )",
+          "AllaganLib.GameSheets": "[2.2.7, )",
           "AllaganLib.Interface": "[2.2.0, )",
           "AllaganLib.Shared": "[2.2.0, )",
           "AllaganLib.Universalis": "[2.2.0, )",
